@@ -18,7 +18,7 @@ module.exports.verify = (req,res,next) => {
 let token = req.headers.authorization
 	if(typeof token === "undefined") {
 
-		res.send({auth:"failed"})
+		res.send({auth:"You are not authorized to perform this action."})
 	} else {
 
 		token = token.slice(7,token.length)
@@ -26,7 +26,7 @@ let token = req.headers.authorization
 		jwt.verify(token,secret,function(error,decoded){
 
 			if(error) {
-				res.send({auth:"failed"})
+				res.send({auth:"Unable to recognized token."})
 			} else {
 				console.log(decoded)
 			

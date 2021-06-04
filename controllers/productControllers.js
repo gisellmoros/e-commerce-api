@@ -60,3 +60,14 @@ module.exports.updateProductDetails = (req,res) => {
 		res.send(error)
 	})
 };
+
+module.exports.archiveProduct = (req,res) => {
+
+	Product.findByIdAndUpdate(req.params.id,{isActive: false},{new: true})
+	.then(archive => {
+		res.send(archive)
+	})
+	.catch(error => {
+		res.send(error)
+	})
+};

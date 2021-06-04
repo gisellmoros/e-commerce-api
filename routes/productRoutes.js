@@ -5,7 +5,8 @@ const {verify,verifyAdmin} = require('../auth')
 const {	createProduct,
 		allActiveProducts,
 		getSingleProduct,
-		updateProductDetails} = require('../controllers/productControllers')
+		updateProductDetails,
+		archiveProduct} = require('../controllers/productControllers')
 
 //Create Product
 router.post('/',verify,verifyAdmin,createProduct);
@@ -18,5 +19,8 @@ router.get('/:id',getSingleProduct);
 
 //Update product details
 router.put('/:id',verify,verifyAdmin,updateProductDetails);
+
+//Archive product
+router.put('/archive-prod/:id',verify,verifyAdmin,archiveProduct);
 
 module.exports = router;

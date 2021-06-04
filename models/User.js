@@ -26,21 +26,26 @@ const UserSchema = new mongoose.Schema ({
 		type: Boolean,
 		default: false
 	},
-	order: [{
-		productId: [{
-			type: String
-		}],
-		orderQuantity: {
-			type: Number,
-		},
-		totalAmount: {
-			type: Number,
-		},
-		purchasedOn: {
-			type: Date,
-			default: new Date()
+	orders: [
+		{
+			productId: {
+				type: String,
+				required: [true,"Product Id is required."]
+			},
+			/*totalQuantity: {
+				type: Number,
+				required: true
+			},
+			totalPrice: {
+				type: Number,
+				required: true
+			},*/
+			purchasedOn: {
+				type: Date,
+				default: new Date()
+			}
 		}
-	}]
+	]
 });
 
 module.exports = mongoose.model('User',UserSchema);

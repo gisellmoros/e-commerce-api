@@ -1,5 +1,6 @@
 const User = require('../models/User');
-const Course = require('../models/Product');
+const Product = require('../models/Product');
+const Order = require('../models/Order');
 const bcrypt = require('bcrypt');
 const {createAccessToken} = require('../auth.js')
 
@@ -7,7 +8,7 @@ module.exports.register = (req,res) => {
 
 	const hashedPw = bcrypt.hashSync(req.body.password,10);
 
-	
+
 	if(req.body.password.length < 8) return res.send({message:"Password too short."});
 	if(req.body.password !== req.body.confirmPassword) return res.send({message:"Password do not match."});
 
@@ -23,7 +24,7 @@ module.exports.register = (req,res) => {
 
 	newUser.save()
 	.then(newUser => {
-		res.send({message: "Thanks for logging your information.",newUser})
+		res.send(newUser)
 	})
 	.catch(error => {
 		res.send(error)
@@ -66,4 +67,38 @@ module.exports.updateAdmin = (req,res) => {
 	.catch(error => {
 		res.send(error)
 	})
+};
+
+//to be continued...
+module.exports.placeAnOrder = (req,res) => {
+
+	if(req.user.isAdmin === true) {
+			res.send({auth:"You are not authorized to perform this action."})
+
+		} else {
+
+			User.findById(req.user.id)
+			.then(foundUser => {
+
+				foundUser.orders.push(req.body)
+
+				return foundUser.save()
+
+			})
+			.then(() => {
+
+				return Product.findById(req.body.productId)
+			})
+			.then(order => {
+
+				order.clientList.push({userId: req.user.id})
+				return order.save()
+
+			})
+			.then(product => {
+
+				res.send(product)
+			})
+
+		}
 };
