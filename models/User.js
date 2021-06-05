@@ -10,6 +10,10 @@ const UserSchema = new mongoose.Schema ({
 		type: String,
 		required: [true,"Please enter your last name."]
 	},
+	username: {
+		type: String,
+		required: [true,"Please enter your username."]
+	},
 	mobileNo: {
 		type: String,
 		required: [true,"Please enter your mobile number."]
@@ -32,14 +36,14 @@ const UserSchema = new mongoose.Schema ({
 				type: String,
 				required: [true,"Product Id is required."]
 			},
-			/*totalQuantity: {
+			totalQuantity: {
 				type: Number,
 				required: true
 			},
 			totalPrice: {
 				type: Number,
 				required: true
-			},*/
+			},
 			purchasedOn: {
 				type: Date,
 				default: new Date()

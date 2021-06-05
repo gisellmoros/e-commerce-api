@@ -16,6 +16,7 @@ module.exports.register = (req,res) => {
 
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
+		username: req.body.username,
 		mobileNo: req.body.mobileNo,
 		email: req.body.email,
 		password: hashedPw
@@ -91,7 +92,8 @@ module.exports.placeAnOrder = (req,res) => {
 			})
 			.then(order => {
 
-				order.clientList.push({userId: req.user.id})
+				order.clientList.push(userId: req.user.id)
+
 				return order.save()
 
 			})

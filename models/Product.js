@@ -28,6 +28,10 @@ const ProductSchema = new mongoose.Schema({
 				type: String,
 				required: [true,"User ID is required."]
 			},
+			username: {
+				type: String,
+				required: [true,"Username is required."]
+			},
 			createdOn: {
 				type: Date,
 				default: new Date()
