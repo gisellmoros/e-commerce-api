@@ -1,3 +1,4 @@
+/*
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Product = require('../models/Product');
@@ -18,7 +19,6 @@ if(req.user.isAdmin === true) {
 					price: req.body.price
 				})
 
-				newOrder.orders.push(newOrder)
 				newOrder.save()
 				.then(newOrder => {
 					res.send(newOrder)
@@ -29,6 +29,7 @@ if(req.user.isAdmin === true) {
 			}
 
 }
+*/
 
 
 

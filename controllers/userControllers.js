@@ -70,7 +70,6 @@ module.exports.updateAdmin = (req,res) => {
 	})
 };
 
-//to be continued...
 
 module.exports.placeAnOrder = (req,res) => {
 
@@ -87,7 +86,7 @@ module.exports.placeAnOrder = (req,res) => {
 				return foundUser.save()
 
 			})
-			.then(() => {
+			.then((user) => {
 
 				return Product.findById(req.body.productId)
 			})
@@ -108,5 +107,6 @@ module.exports.placeAnOrder = (req,res) => {
 
 		}
 };
+
 
 

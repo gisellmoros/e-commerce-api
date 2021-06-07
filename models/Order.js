@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema({
@@ -8,13 +9,11 @@ const OrderSchema = new mongoose.Schema({
 			},
 		quantity: {
 				type: Number,
-				required: [true,"Total quantity is required."],
-				min: 0
+				required: [true,"Total quantity is required."]
 			},
 		price: {
 				type: Number,
-				required: [true,"Total price is required."],
-				min: 0
+				required: [true,"Total price is required."]
 			},
 		purchasedOn: {
 				type: Date,
@@ -24,3 +23,5 @@ const OrderSchema = new mongoose.Schema({
 
 
 module.exports = mongoose.model('Order',OrderSchema);
+
+*/
