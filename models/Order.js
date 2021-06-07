@@ -6,18 +6,21 @@ const OrderSchema = new mongoose.Schema({
 				type: String,
 				required: [true,"Product Id is required."]
 			},
-		totalQuantity: {
+		quantity: {
 				type: Number,
-				required: [true,"Total amount is required."]
+				required: [true,"Total quantity is required."],
+				min: 0
 			},
-		totalPrice: {
+		price: {
 				type: Number,
-				required: [true,"Total amount is required."]
+				required: [true,"Total price is required."],
+				min: 0
 			},
 		purchasedOn: {
 				type: Date,
 				default: new Date()
 			}
 });
+
 
 module.exports = mongoose.model('Order',OrderSchema);

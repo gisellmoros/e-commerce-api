@@ -71,6 +71,7 @@ module.exports.updateAdmin = (req,res) => {
 };
 
 //to be continued...
+
 module.exports.placeAnOrder = (req,res) => {
 
 	if(req.user.isAdmin === true) {
@@ -92,7 +93,7 @@ module.exports.placeAnOrder = (req,res) => {
 			})
 			.then(order => {
 
-				order.clientList.push(userId: req.user.id)
+				order.clientList.push({userId: req.user.id})
 
 				return order.save()
 
@@ -101,6 +102,11 @@ module.exports.placeAnOrder = (req,res) => {
 
 				res.send(product)
 			})
+			.catch(error => {
+				res.send(error)
+			})
 
 		}
 };
+
+
