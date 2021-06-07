@@ -1,6 +1,5 @@
 const User = require('../models/User');
 const Product = require('../models/Product');
-const Order = require('../models/Order');
 const bcrypt = require('bcrypt');
 const {createAccessToken} = require('../auth.js')
 
@@ -71,7 +70,7 @@ module.exports.updateAdmin = (req,res) => {
 };
 
 
-module.exports.placeAnOrder = (req,res) => {
+module.exports.createOrder = (req,res) => {
 
 	if(req.user.isAdmin === true) {
 			res.send({auth:"You are not authorized to perform this action."})
@@ -108,5 +107,27 @@ module.exports.placeAnOrder = (req,res) => {
 		}
 };
 
+
+module.exports.getUserOrders = (req,res) => {
+
+	User.findById(req.user.id)
+	.then(user => {
+		res.send(req.user.orders)
+	})
+	.catch(error => {
+		res.send(error)
+	})
+};
+
+module.exports.retrieveOrders = (req,res) => {
+
+	User.find()
+	.then(() => {
+		res.send(req.user.orders)
+	})
+	.catch(error => {
+		res.send(error)
+	})
+}
 
 

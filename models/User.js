@@ -34,11 +34,15 @@ const UserSchema = new mongoose.Schema ({
 			},
 			quantity: {
 				type: Number,
-				required: true,
+				required: true
 			},
 			price: {
 				type: Number,
-				required: true,
+				required: true
+			},
+			totalAmount: {
+				type: Number,
+				required: true
 			},
 			purchasedOn: {
 				type: Date,
