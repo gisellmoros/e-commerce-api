@@ -31,27 +31,34 @@ const UserSchema = new mongoose.Schema ({
 		{
 			totalAmount: {
 				type: Number,
-				required: true
+				required: true,
 			},
 			purchasedOn: {
 				type: Date,
-				default: new Date()
+				default: new Date(),
 			},
-
-			productId: {
-				type: String,
-				required: [true,"Product Id is required."]
-			},
-			quantity: {
-				type: Number,
-				required: true
-			},
-			price: {
-				type: Number,
-				required: true
-			},
+			items: [
+				{
+					productId: {
+						type: String,
+						required: [true, 'Product Id is required.'],
+					},
+					quantity: {
+						type: Number,
+						required: true,
+					},
+					price: {
+						type: Number,
+						required: true,
+					},
+					subTotal: {
+						type: Number,
+						required: true,
+					},
+				},
+			],
 		},
-	]
+	],
 });
 
 module.exports = mongoose.model('User',UserSchema);

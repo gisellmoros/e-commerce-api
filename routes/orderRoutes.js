@@ -9,7 +9,7 @@ router.post('/',verify,createOrder);
 
 router.get('/getOrder',verify,getUserOrders);
 
-//router.get('/',verify,verifyAdmin,retrieveOrders);
+router.get('/',verify,verifyAdmin,retrieveOrders);
 
 
 

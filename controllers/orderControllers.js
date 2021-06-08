@@ -23,7 +23,8 @@ module.exports.createOrder = (req,res) => {
 		res.send(error)
 		})
 	}
-}
+};
+
 
 module.exports.getUserOrders = (req,res) => {
 
@@ -36,15 +37,15 @@ module.exports.getUserOrders = (req,res) => {
 	})
 };
 
-/*
+
 module.exports.retrieveOrders = (req,res) => {
 
-	User.findById(req.user.id)
-	.then((orders) => {
-		res.send(user.orders)
+	User.find()
+	.then((foundOrders) => {
+		res.send(foundOrders)
 	})
 	.catch(error => {
 		res.send(error)
 	})
 }
-*/
+
