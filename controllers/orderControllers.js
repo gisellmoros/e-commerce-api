@@ -8,41 +8,64 @@ module.exports.createOrder = (req, res) => {
 	} else {
 		User.findById(req.user.id)
 			.then(foundUser => {
-				
-				const foundProduct = {
-					productId: '123456789', //from req.body array actually
-					price: 500,
-				};
 
-				const reqBodyQuantity = 4; //from req.body array
+				const foundProductData = req.body;
 
-				let subTotal = foundProduct.price * reqBodyQuantity;
-				let totalAmount = subTotal; //since isang product/item lang.
+				const productIds = foundProductData.map(item => {
+					return item.productId;
+
+				});
+
+				//console.log(productIds)
+
+				const quantities = foundProductData.map(item => {
+					return item.quantity;
+
+				});
 
 				const newOrder = {
-					totalAmount: totalAmount,
-					items: [
-						{
-							productId: foundProduct.productId,
-							quantity: reqBodyQuantity,
-							price: foundProduct.price,
-							subTotal: subTotal,
-						},
-					],
+					totalAmount: 0,
+					items: [],
 				};
 
-				foundUser.orders.push(newOrder);
+				let totalAmount = 0;
 
-				return foundUser.save();
-			})
-			.then(user => {
-				res.send(user.orders);
+				foundProductData.forEach(item => {
+
+					Product.findById(item.productId)
+					.then(product => {
+					//console.log("quantity: ",item.quantity,product.name)
+					const subTotal = item.quantity * product.price
+					totalAmount += subTotal
+					const orderedProduct = {
+						productId: product._id,
+						quantity: item.quantity,
+						price: product.price,
+						subTotal: subTotal
+					}
+					newOrder.totalAmount = totalAmount
+					newOrder.items.push(orderedProduct)
+					console.log(newOrder.items.length)
+						//console.log(totalAmount)
+						//console.log(subTotal)
+					if(foundProductData.length === newOrder.items.length) {
+
+						foundUser.orders.push(newOrder);
+
+						foundUser.save();
+						 return res.send(newOrder)
+						}
+					})
+
+				})				
+				//console.log("success")
 			})
 			.catch(error => {
-				res.send(error);
+				console.log(error.message)
+				res.send(error.message);
 			});
-	}
-};
+		}
+	};
 
 module.exports.getUserOrders = (req,res) => {
 
@@ -51,19 +74,37 @@ module.exports.getUserOrders = (req,res) => {
 		res.send(user.orders)
 	})
 	.catch(error => {
-		res.send(error)
+		res.send(error.message)
 	})
 };
 
 
 module.exports.retrieveOrders = (req,res) => {
+	const allOrders = []
 
 	User.find()
-	.then((foundOrders) => {
-		res.send(foundOrders.orders)
+	.then(users => {
+		
+		//console.log(users[0].orders)
+
+		users.forEach(user => {
+
+			if(user.orders.length) {
+
+				console.log(user.orders)
+				allOrders.push({
+					name: `${user.firstName} ${user.lastName}`,
+					orderDetails: user.orders
+				})
+			}	
+		})
+
+	})
+	.then(()=> {
+		res.send(allOrders)
 	})
 	.catch(error => {
-		res.send(error)
+		res.send(error.message)
 	})
 }
 

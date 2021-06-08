@@ -29,7 +29,7 @@ let token = req.headers.authorization
 			if(error) {
 				res.send({auth:"Unable to recognized token."})
 			} else {
-				console.log(decoded)
+				//console.log(decoded)
 			
 				req.user = decoded
 				
