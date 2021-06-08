@@ -1,7 +1,8 @@
-let express = require('express');
-let mongoose = require('mongoose');
-let app = express();
-let port = 4000;
+const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
+const port = process.env. PORT || 4000;
+const cors = require('cors');
 
 mongoose.connect('mongodb+srv://gisellmoros:3.14easyaspi@cluster0.mhzvf.mongodb.net/instag-api?retryWrites=true&w=majority', {
 
@@ -17,6 +18,7 @@ mongoose.connect('mongodb+srv://gisellmoros:3.14easyaspi@cluster0.mhzvf.mongodb.
 	console.log(err.message)
 });
 
+app.use(cors());
 app.use(express.json());
 
 const userRoutes = require('./routes/userRoutes')
