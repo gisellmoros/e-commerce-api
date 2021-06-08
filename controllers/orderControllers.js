@@ -7,19 +7,37 @@ module.exports.createOrder = (req, res) => {
 		res.send({ auth: 'You are not authorized to perform this action.' });
 	} else {
 		User.findById(req.user.id)
-		
 			.then(foundUser => {
+				
+				const foundProduct = {
+					productId: '123456789', //from req.body array actually
+					price: 500,
+				};
 
-				foundUser.orders.push(req.body);
+				const reqBodyQuantity = 4; //from req.body array
+
+				let subTotal = foundProduct.price * reqBodyQuantity;
+				let totalAmount = subTotal; //since isang product/item lang.
+
+				const newOrder = {
+					totalAmount: totalAmount,
+					items: [
+						{
+							productId: foundProduct.productId,
+							quantity: reqBodyQuantity,
+							price: foundProduct.price,
+							subTotal: subTotal,
+						},
+					],
+				};
+
+				foundUser.orders.push(newOrder);
 
 				return foundUser.save();
 			})
-			.then((user) => {
-
-				return res.send(user.orders);
-
+			.then(user => {
+				res.send(user.orders);
 			})
-
 			.catch(error => {
 				res.send(error);
 			});
