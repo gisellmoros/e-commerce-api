@@ -7,7 +7,9 @@ module.exports.register = (req,res) => {
 
 	const hashedPw = bcrypt.hashSync(req.body.password,10);
 
-
+	const emailChecker = User.find({email: req.body.email})
+	
+	if(emailChecker === req.body.email) return res.send({message:"Email already exists."});
 	if(req.body.password.length < 8) return res.send({message:"Password too short."});
 	if(req.body.password !== req.body.confirmPassword) return res.send({message:"Password do not match."});
 
@@ -70,64 +72,5 @@ module.exports.updateAdmin = (req,res) => {
 };
 
 
-module.exports.createOrder = (req,res) => {
-
-	if(req.user.isAdmin === true) {
-			res.send({auth:"You are not authorized to perform this action."})
-
-		} else {
-
-			User.findById(req.user.id)
-			.then(foundUser => {
-
-				foundUser.orders.push(req.body)
-
-				return foundUser.save()
-
-			})
-			.then((user) => {
-
-				return Product.findById(req.body.productId)
-			})
-			.then(order => {
-
-				order.clientList.push({userId: req.user.id})
-
-				return order.save()
-
-			})
-			.then(product => {
-
-				res.send(product)
-			})
-			.catch(error => {
-				res.send(error)
-			})
-
-		}
-};
-
-
-module.exports.getUserOrders = (req,res) => {
-
-	User.findById(req.user.id)
-	.then(user => {
-		res.send(req.user.orders)
-	})
-	.catch(error => {
-		res.send(error)
-	})
-};
-
-module.exports.retrieveOrders = (req,res) => {
-
-	User.find()
-	.then(() => {
-		res.send(req.user.orders)
-	})
-	.catch(error => {
-		res.send(error)
-	})
-}
 
 

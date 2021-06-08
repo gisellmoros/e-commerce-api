@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema ({
@@ -28,6 +29,15 @@ const UserSchema = new mongoose.Schema ({
 	},
 	orders: [
 		{
+			totalAmount: {
+				type: Number,
+				required: true
+			},
+			purchasedOn: {
+				type: Date,
+				default: new Date()
+			},
+
 			productId: {
 				type: String,
 				required: [true,"Product Id is required."]
@@ -40,15 +50,7 @@ const UserSchema = new mongoose.Schema ({
 				type: Number,
 				required: true
 			},
-			totalAmount: {
-				type: Number,
-				required: true
-			},
-			purchasedOn: {
-				type: Date,
-				default: new Date()
-			}
-		}
+		},
 	]
 });
 

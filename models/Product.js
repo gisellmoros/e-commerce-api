@@ -1,4 +1,4 @@
-	const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
 
@@ -21,19 +21,9 @@ const ProductSchema = new mongoose.Schema({
 	createdOn: {
 		type: Date,
 		default: new Date()
-	},
-	clientList: [
-		{
-			userId: {
-				type: String,
-				required: [true,"User ID is required."]
-			},
-			createdOn: {
-				type: Date,
-				default: new Date()
-			}
-		}
-	]
+	}	
 });
 
 module.exports = mongoose.model('Product',ProductSchema);
+
+
